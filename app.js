@@ -36,17 +36,23 @@ function getIndex(arr) {
 }
 
 function pictureSurvey() {
-  for (var i = 1; i < 4; i ++) {
   var index = getIndex(allProducts);
   var obj = allProducts[index];
-  document.image1.src = obj.path;
   var index2 = getIndex(allProducts);
   var obj2 = allProducts[index2];
-  while index === index2 {
-    return getIndex(allProducts);
-  } else {
-    console.log(index, index2);
+  while (index === index2) {
+    var index2 = getIndex(allProducts);
+    var obj2 = allProducts[index2];
   }
+  var index3 = getIndex(allProducts);
+  var obj3 = allProducts[index3];
+  while (index === index3 || index2 === index3 || index === index2) {
+    var index3 = getIndex(allProducts);
+    var obj3 = allProducts[index3];
+  }
+  document.image1.src = obj.path;
+  document.image2.src = obj2.path;
+  document.image3.src = obj3.path;
 };
 
 pictureSurvey();
