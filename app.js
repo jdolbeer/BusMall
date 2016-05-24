@@ -5,7 +5,6 @@ var container = document.getElementById('container');
 var firstImage = document.getElementById('image1');
 var secondImage = document.getElementById('image2');
 var thirdImage = document.getElementById('image3');
-
 var bag = new Product('bag', 'imgs/bag.jpg');
 var banana = new Product('banana', 'imgs/banana.jpg');
 var bathroom = new Product('bathroom', 'imgs/bathroom.jpg');
@@ -14,18 +13,20 @@ var breakfast = new Product('breakfast', 'imgs/breakfast.jpg');
 var bubblegum = new Product('bubblegum', 'imgs/bubblegum.jpg');
 var chair = new Product('chair', 'imgs/chair.jpg');
 var cthulu = new Product('cthulhu', 'imgs/cthulhu.jpg');
-var dogduck = new Product('dog-duck', 'imgs/dog-duck.jpg');
+var dogduck = new Product('dog-duck', 'imgs/dogduck.jpg');
 var dragon = new Product('dragon', 'imgs/dragon.jpg');
 var pen = new Product('pen', 'imgs/pen.jpg');
-var petsweep = new Product('pet-sweep', 'imgs/pet-sweep.jpg');
+var petsweep = new Product('pet-sweep', 'imgs/petsweep.jpg');
 var scissors = new Product('scissors', 'imgs/scissors.jpg');
 var shark = new Product('shark', 'imgs/shark.jpg');
-var sweep = new Product('sweep', 'imgs/sweep.png');
+var sweep = new Product('sweep', 'imgs/sweep.jpg');
 var tauntaun = new Product('tauntaun', 'imgs/tauntaun.jpg');
 var unicorn = new Product('unicorn', 'imgs/unicorn.jpg');
-var usb = new Product('usb', 'imgs/usb.gif');
-var watercan = new Product('water-can', 'imgs/water-can.jpg');
-var wineglass = new Product('wine-glass', 'imgs/wine-glass.jpg');
+var usb = new Product('usb', 'imgs/usb.jpg');
+var watercan = new Product('water-can', 'imgs/watercan.jpg');
+var wineglass = new Product('wine-glass', 'imgs/wineglass.jpg');
+
+// var picNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 // Constructor
 function Product(productName, path) {
   this.productName = productName;
@@ -34,6 +35,8 @@ function Product(productName, path) {
   this.timesClicked = 0;
   allProducts.push(this);
 };
+// for (var i = 0; i < picNames.length; i++)
+  // allProducts.push(new Product(picNames[i]));
 // Functions
 function getIndex(arr) {
   return Math.floor(Math.random() * arr.length);
@@ -78,8 +81,8 @@ function handleImageClick(event) {
   }
   pictureSurvey();
 }
+// Function Calls
 pictureSurvey();
-
 firstImage.addEventListener('click', handleImageClick);
 secondImage.addEventListener('click', handleImageClick);
 thirdImage.addEventListener('click', handleImageClick);
