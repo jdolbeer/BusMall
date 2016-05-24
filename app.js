@@ -1,5 +1,10 @@
 // Globals
 var allProducts = [];
+var totalClicks = 0;
+var container = document.getElementById('container');
+var firstImage = document.getElementById('image1');
+var secondImage = document.getElementById('image2');
+var thirdImage = document.getElementById('image3');
 
 var bag = new Product('bag', 'imgs/bag.jpg');
 var banana = new Product('banana', 'imgs/banana.jpg');
@@ -30,11 +35,9 @@ function Product(productName, path) {
   allProducts.push(this);
 };
 // Functions
-
 function getIndex(arr) {
   return Math.floor(Math.random() * arr.length);
 }
-
 function pictureSurvey() {
   var index = getIndex(allProducts);
   var obj = allProducts[index];
@@ -50,9 +53,33 @@ function pictureSurvey() {
     var index3 = getIndex(allProducts);
     var obj3 = allProducts[index3];
   }
-  document.image1.src = obj.path;
-  document.image2.src = obj2.path;
-  document.image3.src = obj3.path;
+  firstImage.src = obj.path;
+  secondImage.src = obj2.path;
+  thirdImage.src = obj3.path;
+  firstImage.id = obj.productName;
+  secondImage.id = obj2.productName;
+  thirdImage.id = obj3.productName;
+  obj.timesShown += 1;
+  obj2.timesShown += 1;
+  obj3.timesShown += 1;
 };
-
+// Event Handler
+function handleImageClick(event) {
+  for (var i = 0; i < allProducts.length; i ++) {
+    totalClicks += 1;
+    if (event.target.id === allProducts[i].productName) {
+      allProducts[i].timesClicked += 1;
+    }
+  }
+  if (totalClicks >= 5) {
+    firstImage.removeEventListener('click', handleImageClick);
+    secondImage.removeEventListener('click', handleImageClick);
+    thirdImage.removeEventListener('click', handleImageClick);
+  }
+  pictureSurvey();
+}
 pictureSurvey();
+
+firstImage.addEventListener('click', handleImageClick);
+secondImage.addEventListener('click', handleImageClick);
+thirdImage.addEventListener('click', handleImageClick);
