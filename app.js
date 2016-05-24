@@ -65,13 +65,13 @@ function pictureSurvey() {
 };
 // Event Handler
 function handleImageClick(event) {
+  totalClicks += 1;
   for (var i = 0; i < allProducts.length; i ++) {
-    totalClicks += 1;
     if (event.target.id === allProducts[i].productName) {
       allProducts[i].timesClicked += 1;
     }
   }
-  if (totalClicks >= 5) {
+  if (totalClicks >= 25) {
     firstImage.removeEventListener('click', handleImageClick);
     secondImage.removeEventListener('click', handleImageClick);
     thirdImage.removeEventListener('click', handleImageClick);
