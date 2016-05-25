@@ -6,24 +6,35 @@
   margin: 0 auto;
   text-align: center;
 }
+
 .header {
   font-size: 65px;
   text-align: center;
   margin-bottom: 50px;
 }
+
 .survey {
 position: relative;
 border-style: double;
 border-color: solid black;
 margin-top: 75px;
 margin-left: 50px;
-height: 350px;
-width: auto;
-/*background-position: 50% 50%;*/
+width: 20%;
+height: auto;
+background-position: 50% 50%;
 background-repeat: no-repeat;
 background-size: cover;
 }
+
 p {
   font-size: 1.5em;
   font-family: sans-serif;
+}
+
+button {
+  border-style: double;
+  border-color: solid black;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 1.5em;
 }

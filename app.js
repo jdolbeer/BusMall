@@ -1,39 +1,22 @@
 // Globals
 var allProducts = [];
-var totalClicks = 0;
+var allClicks = 0;
+var infoChart;
+var clicksCounted = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var container = document.getElementById('container');
 var firstImage = document.getElementById('image1');
 var secondImage = document.getElementById('image2');
 var thirdImage = document.getElementById('image3');
-
-var bag = new Product('bag', 'imgs/bag.jpg');
-var banana = new Product('banana', 'imgs/banana.jpg');
-var bathroom = new Product('bathroom', 'imgs/bathroom.jpg');
-var boots = new Product('boots', 'imgs/boots.jpg');
-var breakfast = new Product('breakfast', 'imgs/breakfast.jpg');
-var bubblegum = new Product('bubblegum', 'imgs/bubblegum.jpg');
-var chair = new Product('chair', 'imgs/chair.jpg');
-var cthulu = new Product('cthulhu', 'imgs/cthulhu.jpg');
-var dogduck = new Product('dog-duck', 'imgs/dog-duck.jpg');
-var dragon = new Product('dragon', 'imgs/dragon.jpg');
-var pen = new Product('pen', 'imgs/pen.jpg');
-var petsweep = new Product('pet-sweep', 'imgs/pet-sweep.jpg');
-var scissors = new Product('scissors', 'imgs/scissors.jpg');
-var shark = new Product('shark', 'imgs/shark.jpg');
-var sweep = new Product('sweep', 'imgs/sweep.png');
-var tauntaun = new Product('tauntaun', 'imgs/tauntaun.jpg');
-var unicorn = new Product('unicorn', 'imgs/unicorn.jpg');
-var usb = new Product('usb', 'imgs/usb.gif');
-var watercan = new Product('water-can', 'imgs/water-can.jpg');
-var wineglass = new Product('wine-glass', 'imgs/wine-glass.jpg');
+var allNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dogduck', 'dragon', 'pen', 'petsweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'watercan', 'wineglass'];
 // Constructor
-function Product(productName, path) {
-  this.productName = productName;
-  this.path = path;
+function Product(name) {
+  this.name = name;
+  this.path = 'imgs/' + name + '.jpg';
   this.timesShown = 0;
   this.timesClicked = 0;
-  allProducts.push(this);
 };
+for (var i = 0; i < allNames.length; i++)
+  allProducts.push(new Product(allNames[i]));
 // Functions
 function getIndex(arr) {
   return Math.floor(Math.random() * arr.length);
@@ -56,30 +39,60 @@ function pictureSurvey() {
   firstImage.src = obj.path;
   secondImage.src = obj2.path;
   thirdImage.src = obj3.path;
-  firstImage.id = obj.productName;
-  secondImage.id = obj2.productName;
-  thirdImage.id = obj3.productName;
+  firstImage.name = obj.name;
+  secondImage.name = obj2.name;
+  thirdImage.name = obj3.name;
   obj.timesShown += 1;
   obj2.timesShown += 1;
   obj3.timesShown += 1;
 };
+
 // Event Handler
 function handleImageClick(event) {
-  totalClicks += 1;
+  allClicks += 1;
   for (var i = 0; i < allProducts.length; i ++) {
-    if (event.target.id === allProducts[i].productName) {
+    if (event.target.name === allProducts[i].name) {
       allProducts[i].timesClicked += 1;
+      clicksCounted[i] += 1;
     }
   }
-  if (totalClicks >= 25) {
+  if (allClicks >= 25) {
+    document.getElementById('results').style.visibility = 'visible';
     firstImage.removeEventListener('click', handleImageClick);
     secondImage.removeEventListener('click', handleImageClick);
     thirdImage.removeEventListener('click', handleImageClick);
   }
   pictureSurvey();
 }
+// Chart Creation
+var data = {
+  labels: allNames,
+  datasets: [
+    {
+      label: 'All Clicks for Products',
+      backgroundColor:'rgb(243, 21, 21)',
+      borderColor: 'rgb(25, 24, 19)',
+      borderWidth: 2,
+      hoverBackgroundColor: 'rgb(243, 231, 190)',
+      data: clicksCounted,
+    }]
+};
+function handleButtonClick(event) {
+  document.getElementById('product-chart').style.visibility = 'visible';
+  var ctx = document.getElementById('product-chart').getContext('2d');
+  infoChart = new Chart(ctx,{
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false
+    }
+  });
+};
+// Function Calls
 pictureSurvey();
-
 firstImage.addEventListener('click', handleImageClick);
 secondImage.addEventListener('click', handleImageClick);
 thirdImage.addEventListener('click', handleImageClick);
+document.getElementById('product-chart').style.visibility = 'hidden';
+document.getElementById('results').style.visibility = 'hidden';
+document.getElementById('results').addEventListener('click', handleButtonClick);

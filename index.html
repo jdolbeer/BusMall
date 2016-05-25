@@ -5,6 +5,7 @@
 
     <title>BusMall Survey</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="chart.js"></script>
 
       <body>
         <div class="header">Bus Mall Personal Survey</div>
@@ -13,10 +14,14 @@
             <p>Hi there and welcome to Bus Mall!  We're looking to survey prospective buyers so we can get an accurate idea of what people want!</p>
             <p>There are 3 products below.  Please click on the one that interests you most.  We'll have you go through this 25 times.  Thanks again for clicking!</p>
           <div>
-            <img class="survey" id="image1"/>
-            <img class="survey" id="image2"/>
-            <img class="survey" id="image3"/>
+            <img class="survey" id="image1" name=""/>
+            <img class="survey" id="image2" name=""/>
+            <img class="survey" id="image3" name=""/>
           </div>
+          <div>
+            <button id="results">See All the Results Here!</button>
+          </div>
+          <canvas id="product-chart" width="1200px" height="300px"></canvas>
         </div>
           <script src="app.js"></script>
       </body>
