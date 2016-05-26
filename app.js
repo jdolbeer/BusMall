@@ -2,7 +2,7 @@
 var allProducts = [];
 var allClicks = 0;
 var infoChart;
-var clicksCounted = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var clicksCounted = [];
 var container = document.getElementById('container');
 var firstImage = document.getElementById('image1');
 var secondImage = document.getElementById('image2');
@@ -32,7 +32,7 @@ function pictureSurvey() {
   }
   var index3 = getIndex(allProducts);
   var obj3 = allProducts[index3];
-  while (index === index3 || index2 === index3 || index === index2) {
+  while (index === index3 || index2 === index3) {
     var index3 = getIndex(allProducts);
     var obj3 = allProducts[index3];
   }
@@ -53,7 +53,6 @@ function handleImageClick(event) {
   for (var i = 0; i < allProducts.length; i ++) {
     if (event.target.name === allProducts[i].name) {
       allProducts[i].timesClicked += 1;
-      clicksCounted[i] += 1;
     }
   }
   if (allClicks >= 25) {
@@ -61,8 +60,9 @@ function handleImageClick(event) {
     firstImage.removeEventListener('click', handleImageClick);
     secondImage.removeEventListener('click', handleImageClick);
     thirdImage.removeEventListener('click', handleImageClick);
+    localStorage.setItem('allData', JSON.stringify(allProducts));
   }
-  pictureSurvey();
+  startpage();
 }
 // Chart Creation
 var data = {
@@ -78,6 +78,9 @@ var data = {
     }]
 };
 function handleButtonClick(event) {
+  for (var i = 0; i < allProducts.length; i++) {
+    clicksCounted.push(allProducts[i].timesClicked);
+  }
   document.getElementById('product-chart').style.visibility = 'visible';
   var ctx = document.getElementById('product-chart').getContext('2d');
   infoChart = new Chart(ctx,{
@@ -89,10 +92,21 @@ function handleButtonClick(event) {
   });
 };
 // Function Calls
-pictureSurvey();
+function startpage () {
+  if (localStorage.getItem('allData') === null) {
+    pictureSurvey();
+  } else {
+    var storedProducts = JSON.parse(localStorage.getItem('allData'));
+    for (var i = 0; i < allProducts.length; i ++) {
+      allProducts[i] = storedProducts[i];
+    }
+    pictureSurvey();
+  }
+};
 firstImage.addEventListener('click', handleImageClick);
 secondImage.addEventListener('click', handleImageClick);
 thirdImage.addEventListener('click', handleImageClick);
 document.getElementById('product-chart').style.visibility = 'hidden';
 document.getElementById('results').style.visibility = 'hidden';
 document.getElementById('results').addEventListener('click', handleButtonClick);
+startpage();
