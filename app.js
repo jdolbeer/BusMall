@@ -3,7 +3,6 @@ var allProducts = [];
 var allClicks = 0;
 var infoChart;
 var clicksCounted = [];
-var container = document.getElementById('container');
 var firstImage = document.getElementById('image1');
 var secondImage = document.getElementById('image2');
 var thirdImage = document.getElementById('image3');
@@ -55,11 +54,12 @@ function handleImageClick(event) {
       allProducts[i].timesClicked += 1;
     }
   }
-  if (allClicks >= 25) {
+  if (allClicks >= 5) {
     document.getElementById('results').style.visibility = 'visible';
     firstImage.removeEventListener('click', handleImageClick);
     secondImage.removeEventListener('click', handleImageClick);
     thirdImage.removeEventListener('click', handleImageClick);
+    alert('Thanks for completing the survey! You can see the collective results by hitting the button under the pictures.');
     localStorage.setItem('allData', JSON.stringify(allProducts));
   }
   startpage();
